@@ -1,0 +1,58 @@
+import tkinter as tk
+
+def calculator():
+    try:
+        number1 = float(first_input.get())
+        number2 = float(second_input.get())
+        option = operator.get()
+        if option == "+":
+            solution = number1+number2
+        elif option == "-":
+            solution = number1-number2
+        elif option == "*":
+            solution = number1*number2
+        elif option == "/":
+            if number2 != 0:
+                solution = number1/number2
+            else:
+                solution = "Cannot divide by zero"
+        else:
+            solution = "Give a valid operator"
+        output.config(text="Result: " + str(solution))
+    except ValueError:
+        messagebox.showerror("Invalid input", "Please enter valid numbers")
+
+def clear():
+    first_input.delete(0, tk.END)
+    second_input.delete(0, tk.END)
+    operator.set("+")
+    output.config(text="Result will be shown here.")
+
+app = tk.Tk()
+app.title("Calculator")
+app.geometry("300x300")
+app.config(bg="navyblue")
+tk.Label(app, text="Calculator here:",bg="navyblue").pack()
+
+
+tk.Label(app, text="First input:",bg="navyblue").pack()
+first_input = tk.Entry(app)
+first_input.pack
+
+tk.Label(app, text="Second input:",bg="navyblue").pack()
+second_input = tk.Entry(app)
+second_input.pack()
+
+tk.Label(app, text="Choose operator:",bg="navyblue").pack()
+operator = tk.StringVar()
+operator.set("+")
+tk.OptionMenu(app, operator, "+", "-", "*", "/").pack()
+
+tk.Button(app, text="Calculate", command=calculator, bg="lightpink").pack()
+
+tk.Button(app, text="Clear", command=clear, bg="lightgreen").pack()
+
+output = tk.Label(app, text="Result will be shown here", bg="navyblue")
+output.pack()
+
+app.mainloop()
